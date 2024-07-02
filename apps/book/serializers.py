@@ -17,3 +17,12 @@ class FavoriteSerializer(serializers.ModelSerializer):
         model = Favorite
         fields = ['id', 'user', 'book']
         read_only_fields = ['user']
+
+class SoftDeleteBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['id']
+    
+    def update(self, instance, validated_data):
+        instance.delete()
+        return instance
